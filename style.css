@@ -1,0 +1,65 @@
+@font-face { font-family:Manrope; src:url('assets/ManropeVariable.ttf') format('truetype'); font-weight:200 800; font-display:swap; }
+:root { color-scheme:light; --ink:#142d3a; --muted:#4e6572; --line:#e5ebee; --accent:#28728c; --wash:#eaf3f6; --surface:#fff; --warm:#fff4eb; --radius:16px; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; font: 1rem/1.65 Manrope,system-ui,sans-serif; color:var(--ink); background:#f5f7f8; }
+.wrap { width:min(68rem, calc(100% - 3rem)); margin-inline:auto; }
+.masthead { background:var(--surface); border-bottom:1px solid var(--line); }
+.bar { display:flex; align-items:center; justify-content:space-between; gap:.65rem 2rem; flex-wrap:wrap; padding-block:.9rem; }
+a { color:var(--accent); text-underline-offset:.2em; }
+a:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
+.brand { font-weight:750; color:var(--ink); text-decoration:none; }
+nav { display:flex; gap:1.1rem; }
+nav a { font-size:.92rem; font-weight:650; padding:.4rem .65rem; border-radius:8px; text-decoration:none; }
+nav a:hover { background:var(--wash); }
+.intro { padding-block:clamp(3rem,8vw,6rem); }
+.eyebrow { color:var(--accent); font-weight:700; margin:0 0 .8rem; }
+h1,h2,h3 { line-height:1.14; margin:0; }
+h1 { font-weight:800; font-size:clamp(2.15rem,4.8vw,3.8rem); max-width:24ch; letter-spacing:-.035em; }
+h2 { font-size:clamp(1.45rem,3vw,2rem); font-weight:800; }
+h3 { font-size:1.08rem; }
+p { max-width:72ch; }
+.lede { font-size:clamp(1.12rem,2vw,1.3rem); color:var(--muted); max-width:56ch; margin:1.2rem 0 0; }
+.section { padding-block:2.3rem; border-top:1px solid var(--line); }
+.repos { list-style:none; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.2rem; margin:1.3rem 0 0; }
+.flow span { display:block; margin-top:.3rem; color:var(--muted); }
+.findings { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1.35rem; }
+.findings p,.repos p { margin:.4rem 0 0; }
+.note,figcaption,footer { color:var(--muted); font-size:.92rem; }
+figure { margin:1.5rem 0 0; padding:clamp(.55rem,2vw,1rem); background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); }
+img { display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:.4rem; }
+figcaption { margin-top:.4rem; }
+.repos a { font-weight:700; }
+footer { border-top:1px solid var(--line); padding-block:1.3rem; }
+@media (max-width:42rem) { .wrap { width:calc(100% - 2rem); } .repos,.findings { grid-template-columns:1fr; } }
+@media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+.findings article,.repos li { padding:1.15rem; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); min-width:0; }
+.findings article:first-child { background:var(--wash); }
+.findings article:last-child { background:var(--warm); }
+
+nav { flex-wrap:wrap; gap:.4rem; }
+.references { padding-inline-start:1.3rem; }
+.references li + li { margin-top:.55rem; }
+
+.eyebrow { max-width:64ch; }
+.example { margin-top:1.2rem; padding:1.15rem; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); }
+.example p { margin:.45rem 0 0; }
+
+.paths-heading { margin-top:1.5rem; }
+.diagram { padding:1rem; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); }
+.diagram h4 { margin:0 0 .8rem; font-size:1rem; }
+.diagram-track { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:.5rem; }
+.diagram-node,.diagram-inputs li { padding:.45rem .65rem; border:1px solid var(--line); border-radius:8px; line-height:1.35; }
+.diagram-inputs { margin:0; padding:0; list-style:none; display:grid; gap:.25rem; }
+.diagram-output { background:var(--wash); font-weight:700; }
+.diagram-arrow { color:var(--accent); font-size:1.25rem; justify-self:center; line-height:1; }
+.diagram-arrow::before { content:"→"; }
+.diagram-bridge { margin:.75rem 0; font-weight:650; }
+.diagram-branches { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+.diagram-vertical { grid-template-columns:minmax(0,1fr); }
+.diagram-vertical .diagram-arrow::before { content:"↓"; }
+@media (max-width:42rem) {
+  .diagram-branches,.diagram-track { grid-template-columns:minmax(0,1fr); }
+  .diagram-arrow::before { content:"↓"; }
+}

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Project work sulla qualità dell’acqua e gli accessi gastrointestinali a New York City.">
+<title>NYC Water &amp; Health Explorer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap bar">
+    <a class="brand" href="#inizio">NYC Water &amp; Health</a>
+    <nav aria-label="Sezioni della pagina"><a href="#metodo">Metodo</a><a href="#risultati">Risultati</a><a href="#codice">Codice</a><a href="#fonti">Fonti</a></nav>
+  </div>
+</header>
+<main id="inizio">
+  <section class="intro wrap">
+    <p class="eyebrow">Corso di Perfezionamento in Tecnologie Digitali per Ambienti e Sistemi Intelligenti</p>
+    <h1>Qualità dell’acqua e accessi in pronto soccorso a New York</h1>
+    <p class="lede">Il progetto analizza dati giornalieri di New York per studiare se la torbidità dell’acqua sia associata agli accessi in pronto soccorso per diarrea e vomito. Valuta anche se le misure idriche migliorino la previsione degli accessi del giorno successivo e del totale dei sette giorni successivi.</p>
+    <p>Nella dashboard locale si possono esplorare le serie sanitarie e idriche, consultare le stime associative e vedere quali variabili contribuiscono alle singole previsioni ricostruite su dati passati.</p>
+    <p>Per la diarrea emerge un’associazione primaverile la cui stima dipende dalle scelte del modello. Il contributo dell’acqua alle previsioni varia tra i confronti.</p>
+  </section>
+  <section class="wrap section" id="metodo">
+    <h2>Dalle fonti alle analisi</h2>
+    <p>Le serie giornaliere coprono il periodo 2016–2025, con disponibilità diversa secondo la fonte. Le misure idriche provengono dalla rete di distribuzione e da due punti di monitoraggio a monte. I conteggi di pronto soccorso sono aggregati per giorno e, dove previsto, per borough di residenza. Le osservazioni meteorologiche provengono dalla stazione di LaGuardia. <a href="#fonti">Consulta le fonti</a>.</p>
+    <p>La torbidità misura quanto le particelle in sospensione rendono l’acqua meno limpida. È espressa in unità nefelometriche (NTU). I conteggi sanitari indicano gli accessi registrati per sintomo.</p>
+    <p>La scelta della primavera e del ritardo di sei giorni riprende il risultato esplorativo dello <a href="#hsieh">studio di Hsieh e colleghi</a> su New York.</p>
+    <h3 class="paths-heading">Dai dati alle due analisi</h3>
+    <article class="diagram" aria-labelledby="prep-title">
+      <h4 id="prep-title">Preparazione dei dati</h4>
+      <div class="diagram-track">
+        <ul class="diagram-inputs" aria-label="Fonti in ingresso">
+          <li>Dati idrici</li>
+          <li>Conteggi degli accessi in pronto soccorso</li>
+          <li>Dati meteorologici</li>
+        </ul>
+        <span class="diagram-arrow" aria-hidden="true"></span>
+        <div class="diagram-node">Controllo e allineamento per data</div>
+        <span class="diagram-arrow" aria-hidden="true"></span>
+        <div class="diagram-node diagram-output">Serie giornaliere per le analisi</div>
+      </div>
+    </article>
+    <p class="diagram-bridge">Le serie giornaliere alimentano entrambe le analisi qui sotto.</p>
+    <div class="diagram-branches">
+      <article class="diagram" aria-labelledby="assoc-title">
+        <h4 id="assoc-title">Analisi associativa</h4>
+        <div class="diagram-track diagram-vertical">
+          <ul class="diagram-inputs" aria-label="Dati abbinati">
+            <li>Torbidità misurata</li>
+            <li>Accessi sei giorni dopo</li>
+          </ul>
+          <span class="diagram-arrow" aria-hidden="true"></span>
+          <div class="diagram-node">Tre fonti idriche confrontate sulle stesse date primaverili</div>
+          <span class="diagram-arrow" aria-hidden="true"></span>
+          <div class="diagram-node diagram-output">Associazione stimata tra torbidità e numero atteso di accessi</div>
+        </div>
+        <p class="note">La stima descrive un’associazione. Per stabilire un effetto causale servirebbero altre evidenze.</p>
+      </article>
+      <article class="diagram" aria-labelledby="ml-title">
+        <h4 id="ml-title">Previsione dei conteggi</h4>
+        <div class="diagram-track diagram-vertical">
+          <div class="diagram-node">Dati disponibili al momento della previsione</div>
+          <span class="diagram-arrow" aria-hidden="true"></span>
+          <div class="diagram-node">Modelli con e senza misure idriche</div>
+          <span class="diagram-arrow" aria-hidden="true"></span>
+          <div class="diagram-node">Previsioni degli accessi: giorno successivo o totale dei sette giorni successivi</div>
+          <span class="diagram-arrow" aria-hidden="true"></span>
+          <div class="diagram-node diagram-output">Le misure idriche riducono l’errore?</div>
+        </div>
+      </article>
+    </div>
+    <figure>
+      <a href="assets/architettura.pdf"><img src="assets/architettura.png" alt="Le fonti alimentano la pipeline e la preparazione offline. Serie, stime associative e risultati predittivi vengono poi letti dalla dashboard locale." loading="lazy"></a>
+      <figcaption>Architettura complessiva del progetto. Le frecce tratteggiate indicano la lettura dei risultati salvati. <a href="assets/architettura.pdf">Apri lo schema in PDF</a>.</figcaption>
+    </figure>
+    <div class="findings">
+      <article><h3>Analisi associativa</h3><p>Il confronto principale usa le stesse 810 date primaverili del 2016–2024 per rendere confrontabili le tre fonti. La regressione quasi-Poisson modella il numero atteso di accessi. Si stima un modello per ciascuna fonte e ciascun esito, controllando per andamento temporale, temperatura e calendario. Le stime sono espresse come variazione percentuale del conteggio atteso per 0,1 NTU in più, con intervalli che tengono conto della dipendenza temporale.</p></article>
+      <article><h3>Valutazione predittiva</h3><p>Famiglia e configurazione sono selezionate sui periodi cronologici 2022 e 2023. Gli errori del 2024 e del 2025 sono confrontati con un riferimento settimanale e con la media dei 28 giorni precedenti. L’errore assoluto medio (MAE) è espresso in numero di accessi. Per valutare il contributo idrico, si confrontano configurazioni con e senza misure dell’acqua sulle stesse date. Il riferimento settimanale riprende il ritmo dei giorni della settimana; la media a 28 giorni riassume il livello recente degli accessi.</p></article>
+    </div>
+  </section>
+  <section class="wrap section" id="risultati">
+    <h2>Risultati principali</h2>
+    <div class="findings">
+      <article><h3>Associazione con la diarrea</h3><p>Su 810 date primaverili comuni, a 0,1 NTU in più nella rete corrisponde una stima di <strong>+1,45%</strong> nel conteggio atteso sei giorni dopo. Con un controllo temporale meno flessibile la stima scende a +0,85% e l’intervallo comprende lo zero. Per il vomito, tutti e tre gli intervalli del confronto primaverile comprendono lo zero.</p></article>
+      <article><h3>Previsione dei conteggi</h3><p>Il modello additivo generalizzato (GAM) selezionato ha un errore assoluto medio inferiore a entrambi i riferimenti storici in tutti i compiti a un giorno. Il vantaggio è meno uniforme a sette giorni.</p><p>L’aggiunta di misure idriche o di informazioni sul campionamento riduce l’errore medio in alcuni confronti, ma il beneficio non è sistematico. I risultati variano tra anni, esiti, territori e modelli, anche quando si escludono i conteggi sanitari precedenti.</p></article>
+    </div>
+    <div class="example"><h3>Un esempio di previsione</h3><p>In un esempio illustrativo, per il 12 giugno 2024 il GAM ha previsto circa 221 accessi per diarrea a livello cittadino, a fronte di 228 osservati. Il grafico dei contributi nell’app mostra come storia sanitaria e calendario concorrono a quella previsione. Il MAE riassume invece gli errori su tutto il periodo valutato.</p></div>
+    <p class="note">Le stime associative riguardano conteggi aggregati e vanno interpretate senza attribuire effetti causali alle misure idriche. Le prestazioni predittive sono retrospettive e dipendono dalle ipotesi su quando i dati diventano disponibili.</p>
+    <figure><a href="assets/risultati.jpg" aria-label="Apri la schermata della dashboard a dimensione originale"><img src="assets/risultati.jpg" alt="Vista dei risultati della dashboard: mappa delle stime per borough e confronto degli intervalli per le tre fonti idriche." loading="lazy"></a><figcaption><strong>Una vista della dashboard.</strong> A sinistra, le stime esplorative per distretto (borough) usano tutte la torbidità cittadina. Il test globale non ha fornito evidenza sufficiente di differenze tra distretti. A destra, i punti indicano le stime per i tre indicatori idrici e i segmenti mostrano i relativi intervalli di incertezza. <a href="assets/risultati.jpg">Apri l’immagine a dimensione originale</a>.</figcaption></figure>
+  </section>
+  <section class="wrap section" id="codice">
+    <h2>Codice e documentazione</h2>
+    <ul class="repos">
+      <li><a href="https://github.com/UniSalento-IDALab-corsoPerfez-25-26/perfez-2526-nyc-pipeline-semeraro">Pipeline <span aria-hidden="true">↗</span></a><p>Preparazione dei dati, analisi associative e diagnostica.</p></li>
+      <li><a href="https://github.com/UniSalento-IDALab-corsoPerfez-25-26/perfez-2526-nyc-ml-semeraro">Machine learning <span aria-hidden="true">↗</span></a><p>Protocollo predittivo, metriche, confronti ed evidenze per l’interpretazione.</p></li>
+      <li><a href="https://github.com/UniSalento-IDALab-corsoPerfez-25-26/perfez-2526-nyc-dashboard-semeraro">Dashboard <span aria-hidden="true">↗</span></a><p>Applicazione Dash e dati elaborati per l’avvio in locale.</p></li>
+    </ul>
+  </section>
+  <section class="wrap section" id="fonti">
+    <h2>Fonti e riferimenti</h2>
+    <ul class="references">
+      <li><a href="https://a816-hrt.nyc.gov/DataCatalog/Pages/DataView.cshtml?id=f34c689e-c0db-4335-b2d6-3837890e1558">NYC DOHMH · EpiQuery</a> — conteggi sindromici degli accessi in pronto soccorso.</li>
+      <li>NYC DEP · <a href="https://data.cityofnewyork.us/d/bkwf-xfky">monitoraggio della rete</a> e misure a monte da <a href="https://data.cityofnewyork.us/d/y43c-5n92">DEL18DT (y43c-5n92)</a> e <a href="https://data.cityofnewyork.us/d/wcg2-rbkn">DELSFBLAB (wcg2-rbkn)</a>.</li>
+      <li><a href="https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00516/html">NOAA · Global Summary of the Day</a> — osservazioni meteorologiche della stazione di LaGuardia.</li>
+      <li id="hsieh"><a href="https://doi.org/10.1371/journal.pone.0125071">Hsieh et al. (2015)</a> — studio sulla torbidità e gli accessi gastrointestinali a New York che motiva il confronto primaverile a sei giorni.</li>
+    </ul>
+  </section>
+</main>
+<footer class="wrap">Gianluigi Semeraro · Università del Salento · A.A. 2025/2026</footer>
+</body>
+</html>

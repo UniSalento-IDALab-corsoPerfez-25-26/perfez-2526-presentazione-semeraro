@@ -1,5 +1,7 @@
 # NYC Water & Health Explorer
 
+**[Visita il sito del progetto su GitHub Pages](https://unisalento-idalab-corsoperfez-25-26.github.io/perfez-2526-presentazione-semeraro/)**
+
 ## Progetto
 
 Il progetto analizza la qualità dell’acqua e gli accessi in pronto soccorso

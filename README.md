@@ -1,4 +1,4 @@
-# NYC Water & Health Explorer
+# Acqua e salute a New York
 
 **[Visita il sito del progetto su GitHub Pages](https://unisalento-idalab-corsoperfez-25-26.github.io/perfez-2526-presentazione-semeraro/)**
 
